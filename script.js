@@ -1,4 +1,27 @@
-let playerSelection = prompt("Rock, Paper or Scissors?");
+//Score
+let playerScore = 0;
+let computerScore = 0;
+
+//Get a selection for player and loop until a valid one.
+
+function getPlayerSelection() {
+    let playerSelectionRaw;
+    let playerSelection;
+   
+    while (true) {
+        
+        playerSelectionRaw = prompt("Rock, Paper or Scissors?").toLowerCase();
+        playerSelection = playerSelectionRaw.charAt(0).toUpperCase() + playerSelectionRaw.slice(1);
+        console.log(playerSelection);
+        if (playerSelection == "Rock" || playerSelection == "Paper" || playerSelection == "Scissors") {
+            // i = 1;
+            return playerSelection;
+        }else {
+            console.log("Not valid option");
+        }  
+    } 
+}
+
 
 // function called getComputerChoice that will randomly return either ‘Rock’,
 // ‘Paper’ or ‘Scissors’. 
@@ -43,15 +66,17 @@ function singleRound(computer, player) {
         switch (player) {
             case "Rock":
                 roundResult = isATie;
-                console.log("is a tie")
+                console.log("is a tie");
                 break;
             case "Paper":
                 roundResult = youWin;
-                console.log("YOu win")
+                console.log("YOu win");
+                playerScore += 1;
                 break;
             case "Scissors":
                 roundResult = youLose;
-                console.log("YOu Lose")
+                console.log("YOu Lose");
+                computerScore += 1;
                 break;
         }
 
@@ -59,15 +84,17 @@ function singleRound(computer, player) {
         switch (player) {
             case "Rock":
                 roundResult = youLose;
-                console.log("player lose under a paper")
+                console.log("player lose under a paper");
+                computerScore += 1;
                 break;
             case "Paper":
                 roundResult = isATie;
-                console.log("is a paper tie")
+                console.log("is a paper tie");
                 break;
             case "Scissors":
                 roundResult = youWin;
                 console.log("cut and win")
+                playerScore += 1;
                 break;
         }
         
@@ -75,23 +102,42 @@ function singleRound(computer, player) {
         switch (player) {
             case "Rock":
                 roundResult = youWin;
-                console.log("Smash and win")
+                console.log("Smash and win");
+                playerScore += 1;
                 break;
             case "Paper":
                 roundResult = youLose;
-                console.log("player is cut and lose")
+                console.log("player is cut and lose");
+                computerScore += 1;
                 break;
             case "Scissors":
                 roundResult = isATie;
-                console.log("scissors tie")
+                console.log("scissors tie");
                 break;
         }
         
     }
 }
 
-// Text Here
+//Write a NEW function called game().
+//that keeps score and reports a winner or loser at the end.
+//best of 5
 
+function bestOfFive() {
+    while (playerScore < 3 && computerScore < 3) {
+     singleRound(getComputerChoice(), getPlayerSelection())
+     console.log(`The score is: \n Player: ${playerScore} \n Computer: ${computerScore}`)   
+    }
 
+    if (playerScore == 3) {
+        console.log("And the winner is: The player, 3 out of 5");
+    } else {
+        console.log("The computer win 3 out of 5")
+    }
+    
 
-console.log(singleRound(getComputerChoice(), playerSelection));
+}
+
+// Test Here
+
+bestOfFive();
